@@ -10,7 +10,6 @@ async function run() {
   const { pull_request } = context.payload;
   console.log(pull_request);
   // const commits = (await axios.get(pull_request.commits_url)).data;
-
   await octokit.rest.issues.createComment({
     ...context.repo,
     issue_number: pull_request.number,
