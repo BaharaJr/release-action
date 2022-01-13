@@ -1,3 +1,3 @@
 # Release Workflow
 
-## Custome GitHub releases action
+## Custom GitHub releases action
