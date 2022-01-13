@@ -22,7 +22,7 @@ async function run() {
     body: `Hey @${
       pull_request.user.login
     }. Your PR has been created with these commits. \n ${(commits || [])
-      .map((value) => `${value.commit.message} <@${value.author.login}>`)
+      .map((value) => `${value.commit.message} <SHA-${value.sha}>`)
       .join('\n')}`,
   });
 }
