@@ -11,7 +11,7 @@ async function run() {
   await octokit.rest.issues.createComment({
     ...context.repo,
     issue_number: pull_request.number,
-    body: `Hey Bennett, we are up on a good path`,
+    body: `Hey @${pull_request.user.login}, we are up on a good path`,
   });
 }
 run();
