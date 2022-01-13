@@ -1,0 +1,23 @@
+{
+  "name": "release-action",
+  "version": "1.0.0",
+  "description": "Package release custom action",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build src/action.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaharaJr/release-action.git"
+  },
+  "author": "Bennett Benedict",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/BaharaJr/release-action/issues"
+  },
+  "homepage": "https://github.com/BaharaJr/release-action#readme",
+  "dependencies": {
+    "@vercel/ncc": "0.33.1"
+  }
+}

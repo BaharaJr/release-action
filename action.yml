@@ -1,0 +1,14 @@
+name: "Releases"
+description: "Create realise to for projects"
+author: "Bennett Benedict"
+
+inputs: GIT
+  GITHUB_TOKEN:
+    description: 'GitHub Token'
+    required: true
+  TENOR_TOKEN
+    description: 'Tenor API Token'
+    required: true
+runs:
+  using: 'node14'
+  main: 'action/index.js'
