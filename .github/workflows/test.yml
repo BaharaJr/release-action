@@ -1,11 +1,16 @@
-name: Test Action
+name: 👷
 
 on:
   push:
-  branches: [main]
+    branches: [main]
+  pull_request:
+    branches: [main]
+
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+        uses: ./
