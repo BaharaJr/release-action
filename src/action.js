@@ -16,13 +16,14 @@ async function run() {
       },
     })
   ).data;
-  const notes = commits
-    .map((value) => `${value.commit.message} <@${value.author.login}>`)
-    .join("\n");
   await octokit.rest.issues.createComment({
     ...context.repo,
     issue_number: pull_request.number,
-    body: `Hey @${pull_request.user.login}. Your PR has been created with these commits. \n ${notes}`,
+    body: `Hey @${
+      pull_request.user.login
+    }. Your PR has been created with these commits. \n ${(commits || [])
+      .map((value) => `${value.commit.message} <@${value.author.login}>`)
+      .join("\n")}`,
   });
 }
 run();
