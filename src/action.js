@@ -8,9 +8,16 @@ async function run() {
   const octokit = github.getOctokit(GITHUB_TOKEN);
   const { context = {} } = github;
   const { pull_request } = context.payload;
-  const commits = (await axios.get(pull_request.commits_url)).data;
+  const commits = (
+    await axios.get(pull_request.commits_url, {
+      headers: {
+        Authorization: "token " + GITHUB_TOKEN,
+        "User-Agent": pull_request.head.repo.name,
+      },
+    })
+  ).data;
   const notes = commits
-    .map((value) => `${value.commit.message}[@${value.author.login}]`)
+    .map((value) => `${value.commit.message} <@${value.author.login}>`)
     .join("\n");
   await octokit.rest.issues.createComment({
     ...context.repo,
