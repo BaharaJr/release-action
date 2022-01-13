@@ -4,7 +4,7 @@
   "description": "Package release custom action",
   "main": "index.js",
   "scripts": {
-    "build": "ncc build src/action.js -o action",
+    "build": "rm -rf action && ncc build src/action.js -o action",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/BaharaJr/release-action#readme",
   "dependencies": {
+    "@actions/core": "1.6.0",
+    "@actions/github": "5.0.0",
+    "@actions/io": "1.1.1",
     "@vercel/ncc": "0.33.1"
   }
 }
