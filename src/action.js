@@ -19,9 +19,7 @@ async function run() {
   await octokit.rest.issues.createComment({
     ...context.repo,
     issue_number: pull_request.number,
-    body: `Hey @${
-      pull_request.user.login
-    }. Your PR has been created with these commits. \n ${(commits || [])
+    body: `${(commits || [])
       .map((value) => `${value.commit.message} <SHA-${value.sha}>`)
       .join('\n')}`,
   });
