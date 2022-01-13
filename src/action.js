@@ -8,7 +8,6 @@ async function run() {
   const octokit = github.getOctokit(GITHUB_TOKEN);
   const { context = {} } = github;
   const { pull_request } = context.payload;
-  console.log(JSON.stringify(pull_request));
   const commits = (
     await axios.get(pull_request.commits_url, {
       headers: {
