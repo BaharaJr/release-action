@@ -1,19 +1,22 @@
 /* eslint-disable camelcase */
 const github = require('@actions/github');
 const core = require('@actions/core');
+const axios = require('axios');
 
 async function run() {
   const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
   const octokit = github.getOctokit(GITHUB_TOKEN);
   const { context = {} } = github;
   const { pull_request } = context.payload;
-  const commits = await octokit.request(
-    `GET /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/commits`,
-    {
-      owner: pull_request.head.repo.owner.login,
-      repo: pull_request.head.repo.name,
-    },
-  );
+
+  const commits = (
+    await axios.get(pull_request.commits_url, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        'User-Agent': pull_request.head.repo.name,
+      },
+    })
+  ).data;
 
   const lastestRelease = await octokit.request(
     `GET /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases/latest`,
