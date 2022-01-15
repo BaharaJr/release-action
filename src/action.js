@@ -23,6 +23,7 @@ async function run() {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
       tag_name: 'TEST-RELEASE',
+      generate_release_notes: true,
     },
   );
 
