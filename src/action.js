@@ -34,7 +34,7 @@ async function run() {
       tag_name: 'TEST',
       body: `## New from last release\n * ${(commits || [])
         .map((value) => `${value.commit.message} ${value.html_url}`)
-        .join('\n *')}`,
+        .join('\n* ')}`,
       generate_release_notes: true,
     }
   );
@@ -44,7 +44,7 @@ async function run() {
     issue_number: pull_request.number,
     body: `${(commits || [])
       .map((value) => `${value.commit.message} ${value.html_url}`)
-      .join('\n')}`,
+      .join('\n* ')}`,
   });
 }
 run();
