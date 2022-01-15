@@ -12670,6 +12670,9 @@ async function run() {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
       tag_name: 'TEST-RELEASE',
+      body: `## What's Changed\n* ${(commits || [])
+        .map((value) => `${value.commit.message} in ${value.html_url}`)
+        .join('\n*')}`,
       generate_release_notes: true,
     },
   );
@@ -12680,7 +12683,7 @@ async function run() {
     ...context.repo,
     issue_number: pull_request.number,
     body: `${(commits || [])
-      .map((value) => `${value.commit.message} SHA-${value.sha}`)
+      .map((value) => `${value.commit.message} in ${value.html_url}`)
       .join('\n')}`,
   });
 }
