@@ -8,6 +8,7 @@ async function run() {
   const octokit = github.getOctokit(GITHUB_TOKEN);
   const { context = {} } = github;
   const { pull_request } = context.payload;
+
   const commits = (
     await axios.get(pull_request.commits_url, {
       headers: {
@@ -17,26 +18,32 @@ async function run() {
     })
   ).data;
 
+  const lastestRelease = await octokit.request(
+    `GET /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases/latest`,
+    {
+      owner: pull_request.head.repo.owner.login,
+      repo: pull_request.head.repo.name,
+    },
+  );
+
   const releases = await octokit.request(
     `POST /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases`,
     {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
-      tag_name: 'TEST-RELEASE1',
-      body: `## What's Changed\n* ${(commits || [])
-        .map((value) => `${value.commit.message} in ${value.html_url}`)
-        .join('\n*')}`,
-      generate_release_notes: true,
+      tag_name: 'TEST-1',
+      body: `## What's Changed from last release\n * ${(commits || [])
+        .map((value) => `${value.commit.message} ${value.html_url}`)
+        .join('\n *')}`,
     },
   );
 
-  console.log(JSON.stringify(releases));
 
   await octokit.rest.issues.createComment({
     ...context.repo,
     issue_number: pull_request.number,
     body: `${(commits || [])
-      .map((value) => `${value.commit.message} in ${value.html_url}`)
+      .map((value) => `${value.commit.message} ${value.html_url}`)
       .join('\n')}`,
   });
 }
