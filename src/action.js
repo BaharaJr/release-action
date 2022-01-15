@@ -23,7 +23,7 @@ async function run() {
     {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
-    },
+    }
   );
 
   const releases = await octokit.request(
@@ -32,12 +32,12 @@ async function run() {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
       tag_name: 'TEST-1',
-      body: `## What's Changed from last release\n * ${(commits || [])
+      body: `## New from last release\n * ${(commits || [])
         .map((value) => `${value.commit.message} ${value.html_url}`)
         .join('\n *')}`,
-    },
+      generate_release_notes: true,
+    }
   );
-
 
   await octokit.rest.issues.createComment({
     ...context.repo,
