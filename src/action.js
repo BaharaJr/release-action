@@ -22,7 +22,7 @@ async function run() {
     {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
-      tag_name: 'TEST-RELEASE',
+      tag_name: 'TEST-RELEASE1',
       body: `## What's Changed\n* ${(commits || [])
         .map((value) => `${value.commit.message} in ${value.html_url}`)
         .join('\n*')}`,
