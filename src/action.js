@@ -16,11 +16,23 @@ async function run() {
       },
     })
   ).data;
+
+  const releases = await octokit.request(
+    `POST /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases`,
+    {
+      owner: pull_request.head.repo.owner.login,
+      repo: pull_request.head.repo.name,
+      tag_name: 'TEST-RELEASE',
+    },
+  );
+
+  console.log(JSON.stringify(releases));
+
   await octokit.rest.issues.createComment({
     ...context.repo,
     issue_number: pull_request.number,
     body: `${(commits || [])
-      .map((value) => `${value.commit.message} <SHA-${value.sha}>`)
+      .map((value) => `${value.commit.message} SHA-${value.sha}`)
       .join('\n')}`,
   });
 }
