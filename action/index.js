@@ -12704,13 +12704,13 @@ async function run() {
     'content-length': contentLength(FILE_LOCATION),
   };
 
-  const uploadAssetResponse = await github.repos.uploadReleaseAsset({
-    url: releases.upload_url,
+  const assets = await axios.post(releases.upload_url, {
     headers,
     name: ASSET_NAME || 'CUSTOM_ASSET',
     file: fs.readFileSync(FILE_LOCATION),
   });
-  console.log(JSON.stringify(uploadAssetResponse));
+
+  console.log(JSON.stringify(assets));
 }
 run();
 
