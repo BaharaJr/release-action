@@ -2,6 +2,7 @@ name: 'app-releases'
 description: 'Create realise to for projects'
 author: 'Bennett Benedict'
 color: green
+icon: box
 
 inputs:
   GITHUB_TOKEN:
