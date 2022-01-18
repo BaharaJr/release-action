@@ -12707,6 +12707,8 @@ async function run() {
     Authorization: `token ${GITHUB_TOKEN}`,
   };
 
+  console.log(headers);
+
   const assets = await axios.post(
     releases.upload_url,
     {
