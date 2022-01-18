@@ -52,16 +52,24 @@ async function run() {
       generate_release_notes: true,
     },
   );
+  console.log(JSON.stringify(releases));
+
   const headers = {
     'content-type': ASSET_TYPE,
     'content-length': contentLength(FILE_LOCATION),
+    Authorization: `token ${GITHUB_TOKEN}`,
   };
 
-  const assets = await axios.post(releases.upload_url, {
-    headers,
-    name: ASSET_NAME || 'CUSTOM_ASSET',
-    file: fs.readFileSync(FILE_LOCATION),
-  });
+  const assets = await axios.post(
+    releases.upload_url,
+    {
+      name: ASSET_NAME || 'CUSTOM_ASSET',
+      file: fs.readFileSync(FILE_LOCATION),
+    },
+    {
+      headers,
+    },
+  );
 
   console.log(JSON.stringify(assets));
 }
