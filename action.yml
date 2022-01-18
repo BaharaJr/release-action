@@ -9,6 +9,12 @@ inputs:
   FILE_LOCATION:
     description: 'Upload File Location'
     required: true
+  ASSET_NAME:
+    description: 'Name of asset to be uploaded'
+    required: true
+  ASSET_TYPE:
+    description: 'Type of asset to be uploaded'
+    required: true
 
 runs:
   using: 'node12'
