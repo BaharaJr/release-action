@@ -12691,25 +12691,28 @@ async function run() {
       generate_release_notes: true,
     },
   );
-
+  console.log(releases.data.upload_url);
   const headers = {
     'content-type': ASSET_TYPE,
     'content-length': contentLength(FILE_LOCATION),
     Authorization: `token ${GITHUB_TOKEN}`,
   };
+  try {
+    const assets = await axios.post(
+      releases.data.upload_url,
+      {
+        name: ASSET_NAME || 'CUSTOM_ASSET',
+        file: fs.readFileSync(FILE_LOCATION),
+      },
+      {
+        headers,
+      },
+    );
 
-  const assets = await axios.post(
-    releases.data.upload_url,
-    {
-      name: ASSET_NAME || 'CUSTOM_ASSET',
-      file: fs.readFileSync(FILE_LOCATION),
-    },
-    {
-      headers,
-    },
-  );
-
-  console.log(JSON.stringify(assets));
+    console.log(JSON.stringify(assets));
+  } catch (e) {
+    console.log(e);
+  }
 }
 run();
 
