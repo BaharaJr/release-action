@@ -45,7 +45,7 @@ async function run() {
     {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
-      tag_name: new Date().getTime(),
+      tag_name: `${new Date().getTime()}`,
       body: `## New from last release\n * ${(commits || [])
         .map((value) => `${value.commit.message} ${value.html_url}`)
         .join('\n* ')}`,
