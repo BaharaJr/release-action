@@ -45,7 +45,6 @@ async function run() {
       generate_release_notes: true,
     },
   );
-  console.log(releases.data.upload_url);
   const headers = {
     'content-type': ASSET_TYPE,
     'content-length': contentLength(FILE_LOCATION),
@@ -64,8 +63,6 @@ async function run() {
         headers,
       },
     );
-
-    console.log(JSON.stringify(assets));
   } catch (e) {
     console.log(e);
   }
