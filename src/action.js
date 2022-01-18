@@ -9,6 +9,7 @@ async function run() {
   const FILE_LOCATION = core.getInput('FILE_LOCATION');
   const ASSET_NAME = core.getInput('ASSET_NAME');
   const ASSET_TYPE = core.getInput('ASSET_TYPE');
+  const LABEL_NAME = core.getInput('LABE_NAME');
   const octokit = github.getOctokit(GITHUB_TOKEN);
   const { context = {} } = github;
   const { pull_request } = context.payload;
@@ -49,10 +50,15 @@ async function run() {
     'content-type': ASSET_TYPE,
     'content-length': contentLength(FILE_LOCATION),
     Authorization: `token ${GITHUB_TOKEN}`,
+    Accept: 'application/vnd.github.v3+json',
   };
   try {
     const assets = await axios.post(
-      releases.data.upload_url,
+      releases.data.upload_url
+        .split('{?name,')
+        .join(`?name=${ASSET_NAME || 'CUSTOM_ASSET'}`)
+        .split('label}')
+        .join(`&label=${LABEL_NAME || 'release'}`),
       {
         name: ASSET_NAME || 'CUSTOM_ASSET',
         file: fs.readFileSync(FILE_LOCATION),
