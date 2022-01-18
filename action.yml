@@ -1,6 +1,7 @@
-name: 'Releases'
+name: 'app-releases'
 description: 'Create realise to for projects'
 author: 'Bennett Benedict'
+color: green
 
 inputs:
   GITHUB_TOKEN:
