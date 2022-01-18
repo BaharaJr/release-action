@@ -12706,10 +12706,7 @@ async function run() {
         .join(`?name=${ASSET_NAME || 'CUSTOM_ASSET'}`)
         .split('label}')
         .join(`&label=${LABEL_NAME || 'release'}`),
-      {
-        name: ASSET_NAME || 'CUSTOM_ASSET',
-        file: fs.readFileSync(FILE_LOCATION),
-      },
+      fs.readFileSync(FILE_LOCATION),
       {
         headers,
       },
