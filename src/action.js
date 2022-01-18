@@ -32,20 +32,20 @@ async function run() {
       .join('\n* ')}`,
   });
 
-  const lastestRelease = await octokit.request(
+  /*const lastestRelease = await octokit.request(
     `GET /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases/latest`,
     {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
     },
-  );
+  );*/
 
   const releases = await octokit.request(
     `POST /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases`,
     {
       owner: pull_request.head.repo.owner.login,
       repo: pull_request.head.repo.name,
-      tag_name: 'TEST-3',
+      tag_name: new Date().getTime(),
       body: `## New from last release\n * ${(commits || [])
         .map((value) => `${value.commit.message} ${value.html_url}`)
         .join('\n* ')}`,
