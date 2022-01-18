@@ -12679,14 +12679,6 @@ async function run() {
       .join('\n* ')}`,
   });
 
-  /*const lastestRelease = await octokit.request(
-    `GET /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases/latest`,
-    {
-      owner: pull_request.head.repo.owner.login,
-      repo: pull_request.head.repo.name,
-    },
-  );*/
-
   const releases = await octokit.request(
     `POST /repos/${pull_request.head.repo.owner.login}/${pull_request.head.repo.name}/releases`,
     {
@@ -12699,7 +12691,6 @@ async function run() {
       generate_release_notes: true,
     },
   );
-  console.log(JSON.stringify(releases));
 
   const headers = {
     'content-type': ASSET_TYPE,
@@ -12707,10 +12698,8 @@ async function run() {
     Authorization: `token ${GITHUB_TOKEN}`,
   };
 
-  console.log(headers);
-
   const assets = await axios.post(
-    releases.upload_url,
+    releases.data.upload_url,
     {
       name: ASSET_NAME || 'CUSTOM_ASSET',
       file: fs.readFileSync(FILE_LOCATION),
