@@ -14,3 +14,6 @@ jobs:
       - uses: ./
         with:
           GITHUB_TOKEN: ${{secrets.ACTION_GITHUB_TOKEN}}
+          ASSET_NAME: ${{secrets.ASSET_NAME}}
+          FILE_LOCATION: ${{secrets.FILE_LOCATION}}
+          ASSET_TYPE: ${{secrets.ASSET_TYPE}}

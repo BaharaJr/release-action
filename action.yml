@@ -1,14 +1,24 @@
-name: "Releases"
-description: "Create realise to for projects"
-author: "Bennett Benedict"
+name: 'Releases'
+description: 'Create realise to for projects'
+author: 'Bennett Benedict'
 
 inputs:
   GITHUB_TOKEN:
-    description: "GitHub Token"
+    description: 'GitHub Token'
     required: true
-  TENOR_TOKEN:
-    description: "Tenor API Token"
+  FILE_LOCATION:
+    description: 'Upload File Location'
     required: true
+  ASSET_NAME:
+    description: 'Name of asset to be uploaded'
+    required: true
+  ASSET_TYPE:
+    description: 'Type of asset to be uploaded'
+    required: true
+  LABEL_NAME:
+    description: 'Upload label'
+    required: true
+
 runs:
-  using: "node12"
-  main: "action/index.js"
+  using: 'node12'
+  main: 'action/index.js'
