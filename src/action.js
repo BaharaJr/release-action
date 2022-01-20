@@ -13,7 +13,7 @@ const octokit = github.getOctokit(GITHUB_TOKEN);
 const { context = {} } = github;
 
 async function run() {
-  core.debug(JSON.stringify(context));
+  console.log(JSON.stringify(context));
   const eventName = context.eventName;
   switch (eventName) {
     case 'pull_request':
