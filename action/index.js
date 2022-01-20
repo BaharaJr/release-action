@@ -12657,13 +12657,14 @@ const ASSET_NAME = core.getInput('ASSET_NAME');
 const ASSET_TYPE = core.getInput('ASSET_TYPE');
 const LABEL_NAME = core.getInput('LABE_NAME');
 const octokit = github.getOctokit(GITHUB_TOKEN);
+const { context = {} } = github;
 
 async function run() {
-  const { context = {}, github = {} } = github;
+  core.debug(JSON.stringify(context));
   const eventName = context.eventName;
   switch (eventName) {
     case 'pull_request':
-      return await pr();
+      return pr();
     case 'push':
       core.setFailed(
         `Event ${context.eventName} is still WIP and will be available soon. Please submit an issue to the repo for quick delivery.`,
