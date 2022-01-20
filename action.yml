@@ -1,8 +1,6 @@
-name: 'app-releases'
+name: 'Upload a Release Build/Asset'
 description: 'Create realise to for projects'
-author: 'Bennett Benedict'
-color: green
-icon: box
+author: 'Bennett'
 
 inputs:
   GITHUB_TOKEN:
@@ -24,3 +22,7 @@ inputs:
 runs:
   using: 'node12'
   main: 'action/index.js'
+
+branding:
+  icon: 'package'
+  color: 'gray-dark'

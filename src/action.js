@@ -4,14 +4,30 @@ const core = require('@actions/core');
 const axios = require('axios');
 const fs = require('fs');
 
+const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
+const FILE_LOCATION = core.getInput('FILE_LOCATION');
+const ASSET_NAME = core.getInput('ASSET_NAME');
+const ASSET_TYPE = core.getInput('ASSET_TYPE');
+const LABEL_NAME = core.getInput('LABE_NAME');
+const octokit = github.getOctokit(GITHUB_TOKEN);
+
 async function run() {
-  const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
-  const FILE_LOCATION = core.getInput('FILE_LOCATION');
-  const ASSET_NAME = core.getInput('ASSET_NAME');
-  const ASSET_TYPE = core.getInput('ASSET_TYPE');
-  const LABEL_NAME = core.getInput('LABE_NAME');
-  const octokit = github.getOctokit(GITHUB_TOKEN);
-  const { context = {} } = github;
+  const { context = {}, github = {} } = github;
+  const eventName = context.eventName;
+  switch (eventName) {
+    case 'pull_request':
+      return await pr();
+    case 'push':
+      core.setFailed(
+        `Event ${context.eventName} is still WIP and will be available soon. Please submit an issue to the repo for quick delivery.`,
+      );
+    default:
+      core.setFailed(
+        `Event ${context.eventName} is still WIP and will be available soon. Please submit an issue to the repo for quick delivery.`,
+      );
+  }
+}
+const pr = async () => {
   const { pull_request } = context.payload;
 
   const commits = (
@@ -66,5 +82,5 @@ async function run() {
   } catch (e) {
     console.log(e);
   }
-}
+};
 run();
